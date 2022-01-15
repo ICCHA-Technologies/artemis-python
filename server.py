@@ -66,11 +66,11 @@ class MyListener(stomp.ConnectionListener):
 
 
 try:
-    # console = logging.StreamHandler()
-    # console.setFormatter(logging.Formatter('[%(asctime)s] %(name)-12s %(levelname)-8s %(message)s'))
-    # logging.getLogger().addHandler(console)
-    # logging.getLogger().setLevel(logging.DEBUG)
-    # LOGGER = logging.getLogger('Server Stomp')
+    console = logging.StreamHandler()
+    console.setFormatter(logging.Formatter('[%(asctime)s] %(name)-12s %(levelname)-8s %(message)s'))
+    logging.getLogger().addHandler(console)
+    logging.getLogger().setLevel(logging.DEBUG)
+    LOGGER = logging.getLogger('Server Stomp')
 
     # conn1 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
     # listener1 = conn1.set_listener('', MyListener(conn1))
@@ -90,12 +90,12 @@ try:
 
     my_id=random.randint(1,100)        
     list_id.append(my_id)
-    conn4.subscribe(destination='/queue/test', id=my_id)
+    conn4.subscribe(destination='/queue/test', id=my_id, ack='client')
 
 
     my_id=random.randint(1,100)        
     list_id.append(my_id)
-    conn4.subscribe(destination='A.B.C.D', id=my_id)
+    conn4.subscribe(destination='A.B.C.D', id=my_id, ack='client')
 
     time.sleep(10)
     conn4.unsubscribe(list_id[0])
@@ -106,7 +106,7 @@ try:
     my_id=random.randint(1,100)            
     list_id.append(my_id)
     print(f"*****NEW SUBSCRIBE ID {my_id}")
-    conn4.subscribe(destination='/queue/test', id=my_id)
+    conn4.subscribe(destination='/queue/test', id=my_id, ack='client')
     # connect_and_subscribe_topic(conn4,my_id)    
 
     # import pdb;pdb.set_trace()
