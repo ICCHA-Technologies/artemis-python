@@ -21,9 +21,9 @@ class ClientStomp():
 
 
     async def main():
-        task1 = asyncio.create_task(send_message_queue(''))
+        task1 = asyncio.create_task(send_message_queue())
         await task1
 
-        task2 = asyncio.create_task(send_message_topic(''))
+        task2 = asyncio.create_task(send_message_topic())
         await task2
 
