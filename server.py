@@ -44,7 +44,6 @@ class MyListener(stomp.ConnectionListener):
         print('On receiver loop completed: "%s"')
 
     def on_send(self, frame): 
-        # time.sleep(5)       
         print(frame.headers)
         print('On send: "%s"' % frame.body)
   
@@ -58,26 +57,12 @@ class MyListener(stomp.ConnectionListener):
         print(frame.headers)
         connect_and_subscribe(self.conn)
 
-    def on_before_message(self,frame):
-        pass
-        # print('before_message')
-        # print('On connected: "%s"' % frame.headers)
-        # print('Before a message: "%s"' % frame.body)
-
     def on_connecting(self,frame):
         print('on_connecting')
 
     def on_connected(self,frame):
         print('on_connected')
         print('On connected: "%s"' % frame.headers)
-
-    # def on_heartbeat(self,frame):
-    #     print('on_heartbeat')
-    #     print('On heartbeat: "%s"' % frame.headers)
-
-    # def on_heartbeat_timeout(self,frame):
-    #     print('on_heartbeat_timeout')
-    #     print('On heartbeat timeout: "%s"' % frame.headers)
 
 
 try:
@@ -100,20 +85,29 @@ try:
     list_id=[]
 
     conn4 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
-    listener4 = conn4.set_listener('', MyListener(conn4))
+    conn4.connect('admin', 'admin', wait=True)
+    conn4.set_listener('', MyListener(conn4))
 
     my_id=random.randint(1,100)        
     list_id.append(my_id)
-    connect_and_subscribe_topic(conn4,my_id)    
+    conn4.subscribe(destination='/queue/test', id=my_id)
+
 
     my_id=random.randint(1,100)        
     list_id.append(my_id)
-    connect_and_subscribe_queue(conn4,my_id)    
+    conn4.subscribe(destination='A.B.C.D', id=my_id)
 
-    # import pdb;pdb.set_trace()
     time.sleep(10)
-    print(f"*****UNSUBCRIBE ID {list_id[0]}")
     conn4.unsubscribe(list_id[0])
+    print(f"*****UNSUBSCRIBE ID {list_id[0]}")
+
+
+    time.sleep(5)
+    my_id=random.randint(1,100)            
+    list_id.append(my_id)
+    print(f"*****NEW SUBSCRIBE ID {my_id}")
+    conn4.subscribe(destination='/queue/test', id=my_id)
+    # connect_and_subscribe_topic(conn4,my_id)    
 
     # import pdb;pdb.set_trace()
 

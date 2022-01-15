@@ -10,7 +10,7 @@ class ClientStomp():
 
     async def send_message_topic(self, new_message):
         print(f"Sending Topic Message : {new_message}")
-        await asyncio.sleep(1)
+        await asyncio.sleep(2)
         self.conn.send('A.B.C.D', new_message)
 
 
