@@ -10,13 +10,15 @@ class ClientStomp():
 
     async def send_message_topic(self, new_message):
         print(f"Sending Topic Message : {new_message}")
-        await asyncio.sleep(2)
+        await asyncio.sleep(1)
+        self.conn.ack(id=1, subscription=1)        
         self.conn.send('A.B.C.D', new_message)
 
 
     async def send_message_queue(self, new_message):       
         print(f"Sending Queue Message: {new_message}")
         await asyncio.sleep(1)
+        self.conn.ack(id=2,subscription=2)        
         self.conn.send('/queue/test', new_message)
 
 

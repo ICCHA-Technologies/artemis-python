@@ -7,18 +7,6 @@ import stomp
 
 import random
 
-def connect_and_subscribe_queue(conn,id):
-    conn.connect('admin', 'admin', wait=True)
-    
-    #QUEUE
-    conn.subscribe(destination='/queue/test', id=id)
-
-def connect_and_subscribe_topic(conn,id):
-    conn.connect('admin', 'admin', wait=True)
-    #TOPIC
-    
-    conn.subscribe(destination='A.B.C.D', id=id, ack='client',headers = {'subscription-type': 'MULTICAST',})    
-
 
 
 class MyListener(stomp.ConnectionListener):
@@ -72,75 +60,38 @@ try:
     logging.getLogger().setLevel(logging.DEBUG)
     LOGGER = logging.getLogger('Server Stomp')
 
-    # conn1 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
-    # listener1 = conn1.set_listener('', MyListener(conn1))
-
-    # conn2 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
-    # listener2 = conn2.set_listener('', MyListener(conn2))
-
-    # conn3 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
-    # listener3 = conn3.set_listener('', MyListener(conn3))
-
 
     list_id=[]
 
-    conn4 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
-    conn4.connect('admin', 'admin', wait=True)
-    conn4.set_listener('', MyListener(conn4))
+    conn1 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
+    conn1.connect('admin', 'admin', wait=True)
+    conn1.set_listener('', MyListener(conn1))
 
-    my_id=random.randint(1,100)        
+    # my_id=random.randint(1,100)        
+    my_id=2
+    conn1.subscribe(destination='/queue/test', id=my_id, ack='client')
+    # conn1.ack(id=my_id,subscription=my_id)
+
+    my_id=1
     list_id.append(my_id)
-    conn4.subscribe(destination='/queue/test', id=my_id, ack='client')
-
-
-    my_id=random.randint(1,100)        
-    list_id.append(my_id)
-    conn4.subscribe(destination='A.B.C.D', id=my_id, ack='client')
+    conn1.subscribe(destination='A.B.C.D', id=my_id, ack='client')
+    # conn1.ack(id=my_id,subscription=my_id)
 
     time.sleep(10)
-    conn4.unsubscribe(list_id[0])
-    print(f"*****UNSUBSCRIBE ID {list_id[0]}")
+    conn1.unsubscribe(2)
+    print(f"*****UNSUBSCRIBE ID 2")
 
 
     time.sleep(5)
-    my_id=random.randint(1,100)            
-    list_id.append(my_id)
-    print(f"*****NEW SUBSCRIBE ID {my_id}")
-    conn4.subscribe(destination='/queue/test', id=my_id, ack='client')
-    # connect_and_subscribe_topic(conn4,my_id)    
+    print(f"*****NEW SUBSCRIBE ID 2")
+    conn1.subscribe(destination='/queue/test', id=2, ack='client')
 
-    # import pdb;pdb.set_trace()
-
-    # conn4.received_heartbeat()
-    # conn4.set_receipt()
-    # conn4.remove_listener()
-    # conn4.set_subscribe()
-    # conn4.transport()
-    # conn4.unsubscribe()
-    # conn4.version()
-    # conn4.send("Star War")
-    # conn4.send_ssl("Hola mundo")
-
-    # conn4.running()    
-
-
-    # connect_and_subscribe(conn)    
-    # connect_and_subscribe_queue(conn1)    
-    # connect_and_subscribe_queue(conn3)    
-    # connect_and_subscribe_topic(conn2)    
-    # connect_and_subscribe_topic(conn4)    
-
-    # connect_and_subscribe_topic(conn1)    
-    # connect_and_subscribe_topic(conn2)    
-    # connect_and_subscribe_topic(conn3)    
-    # connect_and_subscribe_topic(conn4)    
-
+    # time.sleep(5)
+    # print(f"*****NEW SUBSCRIBE ID 1")
+    # conn1.subscribe(destination='A.B.C.D', id=1, ack='client')
 
     time.sleep(30)
-    # conn1.disconnect()
-    # conn2.disconnect()
-    # conn3.disconnect()
-    conn4.disconnect()
+    conn1.disconnect()
     print("Disconected")
 
 

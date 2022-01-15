@@ -1,0 +1,119 @@
+[2022-01-14 21:02:20,152] stomp.py     INFO     attempt reconnection (True, None, 0)
+[2022-01-14 21:02:20,152] stomp.py     INFO     Attempting connection to host localhost, port 61613
+[2022-01-14 21:02:20,152] stomp.py     INFO     Established connection to host localhost, port 61613
+[2022-01-14 21:02:20,152] stomp.py     INFO     Starting receiver loop (<Thread(Thread-1, started daemon 140333551306496)>)
+[2022-01-14 21:02:20,152] stomp.py     INFO     Created thread <Thread(Thread-1, started daemon 140333551306496)> using func <function default_create_thread at 0x7fa1f3c42790>
+[2022-01-14 21:02:20,153] stomp.py     DEBUG    Sending frame: [b'STOMP', b'\n', b'accept-version:1.1\n', b'heart-beat:4000,4000\n', b'login:admin\n', b'passcode:admin\n', b'\n', b'\x00']
+[2022-01-14 21:02:20,154] stomp.py     DEBUG    Received frame: 'CONNECTED', headers={'version': '1.1', 'session': '4c05d117', 'server': 'ActiveMQ-Artemis/2.20.0 ActiveMQ Artemis Messaging Engine', 'heart-beat': '4000,4000'}, body=''
+[2022-01-14 21:02:20,154] stomp.py     DEBUG    Heartbeats calculated (4000, 4000)
+[2022-01-14 21:02:20,154] stomp.py     DEBUG    Set receive_sleep to 6.0, send_sleep to 4.0
+{'destination': '/queue/test', 'id': 2, 'ack': 'client'}
+[2022-01-14 21:02:20,154] stomp.py     INFO     Starting heartbeat loop
+On send: ""
+[2022-01-14 21:02:20,154] stomp.py     DEBUG    Calculated next outbound heartbeat as 130133.214699292
+[2022-01-14 21:02:20,155] stomp.py     DEBUG    Sending frame: [b'SUBSCRIBE', b'\n', b'ack:client\n', b'destination:/queue/test\n', b'id:2\n', b'\n', b'\x00']
+{'destination': 'A.B.C.D', 'id': 1, 'ack': 'client'}
+On send: ""
+[2022-01-14 21:02:20,155] stomp.py     DEBUG    Sending frame: [b'SUBSCRIBE', b'\n', b'ack:client\n', b'destination:A.B.C.D\n', b'id:1\n', b'\n', b'\x00']
+[2022-01-14 21:02:24,154] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:24,155] stomp.py     DEBUG    Sending a heartbeat message at 130133.215052679
+{}
+On send: "None"
+[2022-01-14 21:02:24,155] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:02:26,473] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '2', 'content-length': '26', 'message-id': '11101982', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215746471'}, body='Client Queue 1 Hola Mundo!'
+{'subscription': '2', 'content-length': '26', 'message-id': '11101982', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215746471'}
+Received a message: "Client Queue 1 Hola Mundo!"
+[2022-01-14 21:02:27,474] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '1', 'content-length': '26', 'message-id': '11101984', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215747473'}, body='Client Topic 1 Hola Mundo!'
+{'subscription': '1', 'content-length': '26', 'message-id': '11101984', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215747473'}
+Received a message: "Client Topic 1 Hola Mundo!"
+[2022-01-14 21:02:28,154] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:28,155] stomp.py     DEBUG    Sending a heartbeat message at 130137.215263603
+{}
+On send: "None"
+[2022-01-14 21:02:28,155] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:02:28,475] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '2', 'content-length': '26', 'message-id': '11101986', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215748475'}, body='Client Queue 2 Hola Mundo!'
+{'subscription': '2', 'content-length': '26', 'message-id': '11101986', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215748475'}
+Received a message: "Client Queue 2 Hola Mundo!"
+[2022-01-14 21:02:29,477] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '1', 'content-length': '26', 'message-id': '11101988', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215749476'}, body='Client Topic 2 Hola Mundo!'
+{'subscription': '1', 'content-length': '26', 'message-id': '11101988', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215749476'}
+Received a message: "Client Topic 2 Hola Mundo!"
+{'id': 1}
+On send: ""
+[2022-01-14 21:02:30,164] stomp.py     DEBUG    Sending frame: [b'UNSUBSCRIBE', b'\n', b'id:1\n', b'\n', b'\x00']
+*****UNSUBSCRIBE ID 1
+[2022-01-14 21:02:30,478] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '2', 'content-length': '26', 'message-id': '11102000', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215750478'}, body='Client Queue 3 Hola Mundo!'
+{'subscription': '2', 'content-length': '26', 'message-id': '11102000', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215750478'}
+Received a message: "Client Queue 3 Hola Mundo!"
+[2022-01-14 21:02:32,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:32,482] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '2', 'content-length': '26', 'message-id': '11102006', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215752481'}, body='Client Queue 4 Hola Mundo!'
+{'subscription': '2', 'content-length': '26', 'message-id': '11102006', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215752481'}
+Received a message: "Client Queue 4 Hola Mundo!"
+[2022-01-14 21:02:33,483] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '2', 'content-length': '26', 'message-id': '11102008', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215753483'}, body='Client Queue 5 Hola Mundo!'
+{'subscription': '2', 'content-length': '26', 'message-id': '11102008', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215753483'}
+Received a message: "Client Queue 5 Hola Mundo!"
+[2022-01-14 21:02:34,164] stomp.py     DEBUG    Sending a heartbeat message at 130143.224523321
+{}
+On send: "None"
+[2022-01-14 21:02:34,165] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:02:34,485] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '2', 'content-length': '26', 'message-id': '11102010', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215754484'}, body='Client Queue 6 Hola Mundo!'
+{'subscription': '2', 'content-length': '26', 'message-id': '11102010', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215754484'}
+Received a message: "Client Queue 6 Hola Mundo!"
+*****NEW SUBSCRIBE ID 1
+{'destination': 'A.B.C.D', 'id': 1, 'ack': 'client'}
+On send: ""
+[2022-01-14 21:02:35,170] stomp.py     DEBUG    Sending frame: [b'SUBSCRIBE', b'\n', b'ack:client\n', b'destination:A.B.C.D\n', b'id:1\n', b'\n', b'\x00']
+[2022-01-14 21:02:35,486] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '2', 'content-length': '26', 'message-id': '11102017', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215755486'}, body='Client Queue 7 Hola Mundo!'
+{'subscription': '2', 'content-length': '26', 'message-id': '11102017', 'destination': '/queue/test', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215755486'}
+Received a message: "Client Queue 7 Hola Mundo!"
+[2022-01-14 21:02:36,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:36,491] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '1', 'content-length': '26', 'message-id': '11102019', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215756488'}, body='Client Topic 4 Hola Mundo!'
+{'subscription': '1', 'content-length': '26', 'message-id': '11102019', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215756488'}
+Received a message: "Client Topic 4 Hola Mundo!"
+[2022-01-14 21:02:37,490] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '1', 'content-length': '26', 'message-id': '11102021', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215757489'}, body='Client Topic 5 Hola Mundo!'
+{'subscription': '1', 'content-length': '26', 'message-id': '11102021', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215757489'}
+Received a message: "Client Topic 5 Hola Mundo!"
+[2022-01-14 21:02:38,492] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '1', 'content-length': '26', 'message-id': '11102023', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215758491'}, body='Client Topic 6 Hola Mundo!'
+{'subscription': '1', 'content-length': '26', 'message-id': '11102023', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215758491'}
+Received a message: "Client Topic 6 Hola Mundo!"
+[2022-01-14 21:02:39,170] stomp.py     DEBUG    Sending a heartbeat message at 130148.230037161
+{}
+On send: "None"
+[2022-01-14 21:02:39,170] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:02:39,493] stomp.py     DEBUG    Received frame: 'MESSAGE', headers={'subscription': '1', 'content-length': '26', 'message-id': '11102025', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215759493'}, body='Client Topic 7 Hola Mundo!'
+{'subscription': '1', 'content-length': '26', 'message-id': '11102025', 'destination': 'A.B.C.D', 'expires': '0', 'redelivered': 'false', 'priority': '4', 'persistent': 'false', 'timestamp': '1642215759493'}
+Received a message: "Client Topic 7 Hola Mundo!"
+[2022-01-14 21:02:40,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:43,170] stomp.py     DEBUG    Sending a heartbeat message at 130152.230414664
+{}
+On send: "None"
+[2022-01-14 21:02:43,170] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:02:44,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:47,171] stomp.py     DEBUG    Sending a heartbeat message at 130156.230819669
+{}
+On send: "None"
+[2022-01-14 21:02:47,171] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:02:48,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:51,171] stomp.py     DEBUG    Sending a heartbeat message at 130160.231262107
+{}
+On send: "None"
+[2022-01-14 21:02:51,171] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:02:52,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:55,171] stomp.py     DEBUG    Sending a heartbeat message at 130164.231658557
+{}
+On send: "None"
+[2022-01-14 21:02:55,172] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:02:56,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:02:59,172] stomp.py     DEBUG    Sending a heartbeat message at 130168.232032252
+{}
+On send: "None"
+[2022-01-14 21:02:59,172] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:03:00,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+[2022-01-14 21:03:03,172] stomp.py     DEBUG    Sending a heartbeat message at 130172.23242258
+{}
+On send: "None"
+[2022-01-14 21:03:03,172] stomp.py     DEBUG    Sending frame: [b'\n']
+[2022-01-14 21:03:04,155] stomp.py     DEBUG    Received frame: 'heartbeat', headers={}, body=None
+{'receipt': 'c205d36f-1163-4bef-8fac-a253c3d235d2'}
+On send: ""
+[2022-01-14 21:03:05,194] stomp.py     DEBUG    Sending frame: [b'DISCONNECT', b'\n', b'receipt:c205d36f-1163-4bef-8fac-a253c3d235d2\n', b'\n', b'\x00']
+Disconected
