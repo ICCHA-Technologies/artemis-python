@@ -54,43 +54,47 @@ class MyListener(stomp.ConnectionListener):
 
 
 try:
-    console = logging.StreamHandler()
-    console.setFormatter(logging.Formatter('[%(asctime)s] %(name)-12s %(levelname)-8s %(message)s'))
-    logging.getLogger().addHandler(console)
-    logging.getLogger().setLevel(logging.DEBUG)
-    LOGGER = logging.getLogger('Server Stomp')
-
+    # console = logging.StreamHandler()
+    # console.setFormatter(logging.Formatter('[%(asctime)s] %(name)-12s %(levelname)-8s %(message)s'))
+    # logging.getLogger().addHandler(console)
+    # logging.getLogger().setLevel(logging.DEBUG)
+    # LOGGER = logging.getLogger('Server Stomp')
 
     list_id=[]
 
     conn1 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
     conn1.connect('admin', 'admin', wait=True)
+    conn1.ack(id="1", subscription="1")
     conn1.set_listener('', MyListener(conn1))
 
-    # my_id=random.randint(1,100)        
-    my_id=2
-    conn1.subscribe(destination='/queue/test', id=my_id, ack='client')
-    # conn1.ack(id=my_id,subscription=my_id)
+    conn2 = stomp.Connection([('localhost', 61613)], heartbeats=(4000, 4000))
+    conn2.connect('admin', 'admin', wait=True)
+    conn2.ack(id="2", subscription="2")
+    conn2.set_listener('', MyListener(conn2))
 
-    my_id=1
-    list_id.append(my_id)
-    conn1.subscribe(destination='A.B.C.D', id=my_id, ack='client')
-    # conn1.ack(id=my_id,subscription=my_id)
+    # my_id=random.randint(1,100)        
+    # conn1.ack(id=2,subscription=2)
+    conn1.subscribe(destination='/queue/test', id=2, ack='client')
+    conn2.subscribe(destination='/queue/test', id=4, ack='client')
+
+    # conn1.ack(id=1,subscription=1)
+    conn1.subscribe(destination='/topic/test', id=1, ack='client')
+    conn2.subscribe(destination='/topic/test', id=3, ack='client')
 
     time.sleep(10)
-    conn1.unsubscribe(2)
-    print(f"*****UNSUBSCRIBE ID 2")
+    conn1.unsubscribe(1)
+    print(f"*****UNSUBSCRIBE ID 1")
 
 
     time.sleep(5)
-    print(f"*****NEW SUBSCRIBE ID 2")
-    conn1.subscribe(destination='/queue/test', id=2, ack='client')
+    print(f"*****NEW SUBSCRIBE ID 1")
+    conn1.subscribe(destination='/topic/test', id=1, ack='client')
 
     # time.sleep(5)
     # print(f"*****NEW SUBSCRIBE ID 1")
     # conn1.subscribe(destination='A.B.C.D', id=1, ack='client')
 
-    time.sleep(30)
+    time.sleep(600)
     conn1.disconnect()
     print("Disconected")
 
