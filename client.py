@@ -6,7 +6,7 @@ import configparser
 class ClientStomp():
     def __init__(self, channel:str,message:str):
         """
-            Create a new instance of the class ClientStopm, recive many parameters.
+            Create a new instance of the class ClientStomp, recive many parameters.
 
         """
         config = configparser.ConfigParser()
@@ -29,6 +29,8 @@ class ClientStomp():
         task_send_event = asyncio.create_task(self.send_event())
         await task_send_event
 
+
 if __name__ == "__main__":
     my_client = ClientStomp(sys.argv[1], sys.argv[2])
+    print(f"TYPE {type(my_client)}")
     asyncio.run(my_client.main())

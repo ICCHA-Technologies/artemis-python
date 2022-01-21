@@ -9,12 +9,12 @@ class Services():
     
     CONSUME_EVENT = '/queue/channel'
     LISTEN_EVENT = '/topic/channel'
-
+    
     def __init__(self):
         try:
             self.config = configparser.ConfigParser()
             self.config.read('settings/config.ini')
-
+            
             self.conn = stomp.Connection([(self.config.get('CLIENT','HOST'), self.config.get('CLIENT','PORT'))])
             self.conn.connect(self.config.get('CLIENT','USERNAME'), self.config.get('CLIENT','PASSWORD'), wait=True)
 
@@ -74,10 +74,14 @@ class Services():
     def get_all_topic_message(self):
         self.conn.subscribe(destination=self.LISTEN_EVENT, id=1, ack='client')
 
-myservices=Services()
 
-while True:
-    myservices.get_all_queue_messages()
-    time.sleep(3)
-    myservices.get_all_topic_message()
-    time.sleep(3)
+if __name__ == "__main__":
+    myservices=Services()
+    print(f"TYPE {type(myservices)}")
+    while True:
+        myservices.get_all_queue_messages()
+        time.sleep(3)
+        myservices.get_all_topic_message()
+        time.sleep(3)
+
+
