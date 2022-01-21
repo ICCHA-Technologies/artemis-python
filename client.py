@@ -1,12 +1,18 @@
 import stomp
-# import time
 import asyncio
 import sys
+import configparser
 
 class ClientStomp():
     def __init__(self, channel:str,message:str):
-        self.conn = stomp.Connection([('localhost', 61613)])
-        self.conn.connect('admin', 'admin', wait=True)
+        """
+            Create a new instance of the class ClientStopm, recive many parameters.
+
+        """
+        config = configparser.ConfigParser()
+        config.read('settings/config.ini')
+        self.conn = stomp.Connection([(config.get('CLIENT','HOST'), config.get('CLIENT','PORT'))])
+        self.conn.connect(config.get('CLIENT','USERNAME'), config.get('CLIENT','PASSWORD'), wait=True)
         self.channel = channel
         self.message = message
 
@@ -22,7 +28,6 @@ class ClientStomp():
     async def main(self):       
         task_send_event = asyncio.create_task(self.send_event())
         await task_send_event
-
 
 if __name__ == "__main__":
     my_client = ClientStomp(sys.argv[1], sys.argv[2])
