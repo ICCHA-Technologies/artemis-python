@@ -1,12 +1,6 @@
-
 import logging
 import time
-import sys
-
 import stomp
-
-import random
-
 
 class Services():
     def __init__(self):
@@ -68,6 +62,8 @@ class Services():
         self.conn1.subscribe(destination='/topic/test', id=1, ack='client')
 
 myservices=Services()
-myservices.get_all_queue_messages()
-myservices.get_all_topic_message()
-time.sleep(60)
+while True:
+    myservices.get_all_queue_messages()
+    time.sleep(3)
+    myservices.get_all_topic_message()
+    time.sleep(3)
