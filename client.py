@@ -25,6 +25,26 @@ class ClientStomp():
         except Exception as e:
             print(f"Error processsing Topic message {e}")
 
+    #Client send message in the queue architecture
+    async def producer_message(self):
+        try:
+            print(f"Sending Queue Message : {self.message}")
+            await asyncio.sleep(1)
+            # self.conn.ack(id=1,subscription=1)        
+            self.conn.send(destination=self.channel, body=self.message)
+        except Exception as e:
+            print(f"Error processsing Queue message {e}")
+
+    #Client send message in the topic architecture
+    async def publisher_message(self):
+        try:
+            print(f"Sending Topic Message : {self.message}")
+            await asyncio.sleep(1)
+            self.conn.ack(id=1,subscription=1)        
+            self.conn.send(destination=self.channel, body=self.message)
+        except Exception as e:
+            print(f"Error processsing Topic message {e}")
+
     async def main(self):       
         task_send_event = asyncio.create_task(self.send_event())
         await task_send_event
@@ -32,5 +52,4 @@ class ClientStomp():
 
 if __name__ == "__main__":
     my_client = ClientStomp(sys.argv[1], sys.argv[2])
-    print(f"TYPE {type(my_client)}")
     asyncio.run(my_client.main())

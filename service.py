@@ -7,8 +7,9 @@ import configparser
 
 class Services():
     
-    CONSUME_EVENT = '/queue/channel'
-    LISTEN_EVENT = '/topic/channel'
+    CONSUME_EVENT = '/queue/queue-1'
+    LISTEN_EVENT = 'A.B.C.D'
+    
     
     def __init__(self):
         try:
@@ -16,9 +17,8 @@ class Services():
             self.config.read('settings/config.ini')
             
             self.conn = stomp.Connection([(self.config.get('CLIENT','HOST'), self.config.get('CLIENT','PORT'))])
-            self.conn.connect(self.config.get('CLIENT','USERNAME'), self.config.get('CLIENT','PASSWORD'), wait=True)
+            self.conn.connect(self.config.get('CLIENT','USERNAME'), self.config.get('CLIENT','PASSWORD'), wait=True, headers = {'client-id': 'clientname'} )
 
-            self.conn.ack(id="1", subscription="1")
             self.conn.set_listener('',self)
         
             if self.config.get('APP','DEBUG')=='True':
@@ -70,18 +70,23 @@ class Services():
         print("Disconected")
 
     def get_all_queue_messages(self):
-        self.conn.subscribe(destination=self.CONSUME_EVENT, id=2, ack='client')
+        try:
+            self.conn.subscribe(destination=self.CONSUME_EVENT, id=1, ack='auto')
+        except Exception as e:
+            print(e)
     def get_all_topic_message(self):
-        self.conn.subscribe(destination=self.LISTEN_EVENT, id=1, ack='client')
-
+        try:
+            self.conn.subscribe(destination=self.LISTEN_EVENT, id=1, ack='auto',headers = {'subscription-type': 'MULTICAST','durable-subscription-name':'someValue'})
+        except Exception as e:
+            print(e)
+      
 
 if __name__ == "__main__":
     myservices=Services()
-    print(f"TYPE {type(myservices)}")
     while True:
         myservices.get_all_queue_messages()
-        time.sleep(3)
+        time.sleep(1)
         myservices.get_all_topic_message()
-        time.sleep(3)
+        time.sleep(1)
 
 
