@@ -9,34 +9,20 @@ class ClientStomp():
             Create a new instance of the class ClientStomp, recive many parameters.
 
         """
-        config = configparser.ConfigParser()
-        config.read('settings/config.ini')
-        self.conn = stomp.Connection([(config.get('CLIENT','HOST'), config.get('CLIENT','PORT'))])
-        self.conn.connect(config.get('CLIENT','USERNAME'), config.get('CLIENT','PASSWORD'), wait=True)
-        self.channel = channel
-        self.message = message
+        try:
+            # import pdb;pdb.set_trace()
 
+            self.config = configparser.ConfigParser()
+            self.config.read('settings/config.ini')
+
+            self.conn = stomp.Connection([(self.config.get('CLIENT','HOST'), self.config.get('CLIENT','PORT'))])
+            self.conn.connect(self.config.get('CLIENT','USERNAME'), self.config.get('CLIENT','PASSWORD'), wait=True)
+
+            self.channel = channel
+            self.message = message
+        except Exception as e:
+            print(f'Error connecting to {e}')
     async def send_event(self):
-        try:
-            print(f"Sending Topic Message : {self.message}")
-            await asyncio.sleep(1)
-            self.conn.ack(id=1,subscription=1)        
-            self.conn.send(destination=self.channel, body=self.message)
-        except Exception as e:
-            print(f"Error processsing Topic message {e}")
-
-    #Client send message in the queue architecture
-    async def producer_message(self):
-        try:
-            print(f"Sending Queue Message : {self.message}")
-            await asyncio.sleep(1)
-            # self.conn.ack(id=1,subscription=1)        
-            self.conn.send(destination=self.channel, body=self.message)
-        except Exception as e:
-            print(f"Error processsing Queue message {e}")
-
-    #Client send message in the topic architecture
-    async def publisher_message(self):
         try:
             print(f"Sending Topic Message : {self.message}")
             await asyncio.sleep(1)
@@ -51,5 +37,11 @@ class ClientStomp():
 
 
 if __name__ == "__main__":
-    my_client = ClientStomp(sys.argv[1], sys.argv[2])
-    asyncio.run(my_client.main())
+    try:
+        host = sys.argv[1]
+        message  = sys.argv[2]
+
+        my_client = ClientStomp(host, message)
+        asyncio.run(my_client.main())
+    except Exception as e:
+        print(f"Error with the clien {e}")

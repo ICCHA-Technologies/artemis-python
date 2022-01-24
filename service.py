@@ -4,6 +4,7 @@ import stomp
 import sys
 from debug import Debugin
 import configparser
+import json
 
 class Services():
     
@@ -17,10 +18,10 @@ class Services():
             self.config.read('settings/config.ini')
             
             self.conn = stomp.Connection([(self.config.get('CLIENT','HOST'), self.config.get('CLIENT','PORT'))])
-            self.conn.connect(self.config.get('CLIENT','USERNAME'), self.config.get('CLIENT','PASSWORD'), wait=True, headers = {'client-id': 'clientname'} )
-
             self.conn.set_listener('',self)
+            self.conn.connect(self.config.get('CLIENT','USERNAME'), self.config.get('CLIENT','PASSWORD'), wait=True, headers = {'client-id': 'clientname'} )
         
+            self.msg_recieved = 0
             if self.config.get('APP','DEBUG')=='True':
                 Debugin()
         except stomp.exception.StompException as e:                   
@@ -34,8 +35,10 @@ class Services():
         print('Send a message: "%s"' % frame.body)
 
     def on_message(self, frame):        
+        self.msg_recieved += 1
         print(f"Headers: {frame.headers}")
         print('Received a message: "%s"' % frame.body)
+        print(f"Message recieved {self.msg_recieved}")
 
     def on_receipt(self, frame):        
         print(f"Headers: {frame.headers}")
