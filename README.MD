@@ -1,7 +1,6 @@
 <h1>This app have two scripts</h1>
 
-<h2><br>service.py</br></h2>
-
+<h2>service.py</h2>
 This program creates a connection for a host and a specific port, in addition to supplying the credentials necessary to make that connection, this service is maintained in an infinite cycle.
 
 To run it you must use the following command in your console.
@@ -37,8 +36,7 @@ Receives all messages sent to the specific topic channel
     Headers: {'destination': '/queue/channel', 'id': 2, 'ack': 'client'}
     On send: ""
 
-<h2><br>client.py</br></h2>
-
+<h2>client.py</h2>
 
 This program receives by parameter the name of the channel to be sent the message and the message in quotation marks.
 
