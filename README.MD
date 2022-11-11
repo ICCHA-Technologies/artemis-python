@@ -1,6 +1,5 @@
 <h1>This app have two scripts</h1>
 
-
 <h2><br>service.py</br></h2>
 
 This program creates a connection for a host and a specific port, in addition to supplying the credentials necessary to make that connection, this service is maintained in an infinite cycle.
